@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_survey_js/model/survey.dart' as s;
 import 'package:flutter_survey_js/ui/reactive/reactive.dart';
 import 'package:flutter_survey_js/ui/reactive/reactive_color_picker.dart';
@@ -11,8 +12,31 @@ import 'survey_element_factory.dart';
 final SurveyElementBuilder textBuilder =
     (context, element, {bool hasTitle = true}) {
   final e = element as s.Text;
-  Widget widget = ReactiveTextField(
-    formControlName: element.name!,
+  final FocusNode textFieldFocus = FocusNode();
+  Widget widget = RawKeyboardListener(
+    focusNode: textFieldFocus,
+    onKey: (RawKeyEvent event) {
+      if (event is RawKeyDownEvent && event.data is RawKeyEventDataAndroid) {
+        RawKeyDownEvent rawKeyDownEvent = event;
+        RawKeyEventData rawKeyEventDataAndroid = rawKeyDownEvent.data;
+        if (LogicalKeyboardKey.arrowUp == rawKeyEventDataAndroid.logicalKey) {
+          FocusManager.instance.primaryFocus
+              ?.focusInDirection(TraversalDirection.up);
+        }
+        if (LogicalKeyboardKey.arrowDown == rawKeyEventDataAndroid.logicalKey) {
+          FocusManager.instance.primaryFocus
+              ?.focusInDirection(TraversalDirection.down);
+        }
+      }
+    },
+    child: ReactiveTextField(
+      formControlName: element.name!,
+      textInputAction: TextInputAction.done,
+      onEditingComplete: (v) {
+        FocusManager.instance.primaryFocus
+            ?.focusInDirection(TraversalDirection.down);
+      },
+    ),
   );
 
   if (e.inputType == 'date') {

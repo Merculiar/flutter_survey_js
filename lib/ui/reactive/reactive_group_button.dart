@@ -52,25 +52,29 @@ class ReactiveGroupButton extends ReactiveFocusableFormField<dynamic, dynamic> {
                       final choice = buttons[index];
                       final title =
                           choice.text ?? choice.value?.toString() ?? '';
-                      return RadioListTile<int>(
-                        title: Text(title),
-                        groupValue: state._controller.selectedIndex,
-                        value: index,
-                        onChanged: (_) {
-                          if (!selected) {
-                            state._controller.selectIndex(index);
-                          } else {
-                            state._controller.unselectIndex(index);
-                          }
-                          if (field.control.enabled) {
-                            if (!selected) {
-                              field.didChange(choice.value);
-                            } else {
-                              field.didChange(null);
-                            }
-                            onChanged?.call(field.control);
-                          }
-                        },
+                      return Row(
+                        children: [
+                          Radio<int>(
+                            groupValue: state._controller.selectedIndex,
+                            value: index,
+                            onChanged: (_) {
+                              if (!selected) {
+                                state._controller.selectIndex(index);
+                              } else {
+                                state._controller.unselectIndex(index);
+                              }
+                              if (field.control.enabled) {
+                                if (!selected) {
+                                  field.didChange(choice.value);
+                                } else {
+                                  field.didChange(null);
+                                }
+                                onChanged?.call(field.control);
+                              }
+                            },
+                          ),
+                          Text(title),
+                        ],
                       );
                     },
                     enableDeselect: enableDeselect,
@@ -100,7 +104,7 @@ class _ReactiveGroupButtonState<T>
         ? currentWidget._controller!
         : GroupButtonController();
     final index =
-        currentWidget._buttons.indexWhere((element) => element == initialValue);
+        currentWidget._buttons.indexWhere((element) => element.text == initialValue);
     if (index != -1) {
       _controller.selectIndex(index);
     }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_survey_js/model/survey.dart' as s;
 import 'package:flutter_survey_js/ui/elements/matrix_dropdown.dart';
 import 'package:flutter_survey_js/ui/panel_title.dart';
@@ -57,18 +58,43 @@ class SurveyElementFactory {
             validators: validators, value: (element as s.Rating).defaultValue));
 
     register<s.Comment>(
-        (context, element, {bool hasTitle = true}) => ReactiveTextField(
-              formControlName: element.name!,
-              decoration: new InputDecoration(
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                    borderSide: BorderSide(color: Colors.blue)),
-                filled: true,
-                contentPadding:
-                    EdgeInsets.only(bottom: 10.0, left: 10.0, right: 10.0),
-              ),
-            ).wrapQuestionTitle(element, hasTitle: hasTitle));
+        (context, element, {bool hasTitle = true}) => RawKeyboardListener(
+              focusNode: FocusNode(),
+              onKey: (RawKeyEvent event) {
+                if (event is RawKeyDownEvent &&
+                    event.data is RawKeyEventDataAndroid) {
+                  RawKeyDownEvent rawKeyDownEvent = event;
+                  RawKeyEventData rawKeyEventDataAndroid = rawKeyDownEvent.data;
+                  if (LogicalKeyboardKey.arrowUp ==
+                      rawKeyEventDataAndroid.logicalKey) {
+                    FocusManager.instance.primaryFocus
+                        ?.focusInDirection(TraversalDirection.up);
+                  }
+                  if (LogicalKeyboardKey.arrowDown ==
+                      rawKeyEventDataAndroid.logicalKey) {
+                    FocusManager.instance.primaryFocus
+                        ?.focusInDirection(TraversalDirection.down);
+                  }
+                }
+              },
+              child: ReactiveTextField(
+                formControlName: element.name!,
+                textInputAction: TextInputAction.next,
+                decoration: new InputDecoration(
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                      borderSide: BorderSide(color: Colors.blue)),
+                  filled: true,
+                  contentPadding:
+                      EdgeInsets.only(bottom: 10.0, left: 10.0, right: 10.0),
+                ),
+                onEditingComplete: (v) {
+                  FocusManager.instance.primaryFocus
+                      ?.focusInDirection(TraversalDirection.down);
+                },
+              ).wrapQuestionTitle(element, hasTitle: hasTitle),
+            ));
 
     register<s.Text>(textBuilder, control: textControlBuilder);
     register<s.MultipleText>(multipleTextBuilder,

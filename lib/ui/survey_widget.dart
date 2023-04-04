@@ -24,6 +24,11 @@ class SurveyWidget extends StatefulWidget {
   final bool showQuestionsInOnePage;
   final SurveyController? controller;
   final SurveyBuilder? builder;
+  final Color focusColor;
+  final ButtonStyle? focusableButtonStyle;
+  final Decoration? elementDecoration;
+  final EdgeInsetsGeometry? elementPadding;
+
 
   const SurveyWidget({
     Key? key,
@@ -34,6 +39,10 @@ class SurveyWidget extends StatefulWidget {
     this.controller,
     this.builder,
     this.showQuestionsInOnePage = false,
+    this.focusColor = Colors.black,
+    this.focusableButtonStyle,
+    this.elementDecoration,
+    this.elementPadding,
   }) : super(key: key);
   @override
   State<StatefulWidget> createState() => SurveyWidgetState();
@@ -88,24 +97,35 @@ class SurveyWidgetState extends State<SurveyWidget> {
     }
     final elementsState = ElementsState(status);
 
-    return ReactiveForm(
-      formGroup: this.formGroup,
-      child: StreamBuilder(
-        stream: this.formGroup.valueChanges,
-        builder: (BuildContext context,
-            AsyncSnapshot<Map<String, Object?>?> snapshot) {
-          return SurveyProvider(
-            survey: widget.survey,
-            formGroup: formGroup,
-            elementsState: elementsState,
-            currentPage: currentPage,
-            initialPage: initialPage,
-            showQuestionsInOnePage: widget.showQuestionsInOnePage,
-            child: Builder(
-                builder: (context) =>
-                    (widget.builder ?? defaultBuilder)(context)),
-          );
-        },
+    return Theme(
+      data: Theme.of(context).copyWith(
+        focusColor: widget.focusColor,
+        textButtonTheme:
+            TextButtonThemeData(style: widget.focusableButtonStyle),
+        inputDecorationTheme: InputDecorationTheme(),
+      ),
+      child: ReactiveForm(
+        formGroup: this.formGroup,
+        child: StreamBuilder(
+          stream: this.formGroup.valueChanges,
+          builder: (BuildContext context,
+              AsyncSnapshot<Map<String, Object?>?> snapshot) {
+            return SurveyProvider(
+              survey: widget.survey,
+              formGroup: formGroup,
+              elementsState: elementsState,
+              currentPage: currentPage,
+              initialPage: initialPage,
+              showQuestionsInOnePage: widget.showQuestionsInOnePage,
+              focusColor: widget.focusColor,
+              elementDecoration: widget.elementDecoration,
+              elementPadding: widget.elementPadding,
+              child: Builder(
+                  builder: (context) =>
+                      (widget.builder ?? defaultBuilder)(context)),
+            );
+          },
+        ),
       ),
     );
   }
@@ -175,6 +195,10 @@ class SurveyProvider extends InheritedWidget {
   final int currentPage;
   final int initialPage;
   final bool showQuestionsInOnePage;
+  final Color focusColor;
+  final Decoration? elementDecoration;
+  final EdgeInsetsGeometry? elementPadding;
+
 
   SurveyProvider({
     required this.elementsState,
@@ -183,6 +207,9 @@ class SurveyProvider extends InheritedWidget {
     required this.formGroup,
     required this.currentPage,
     required this.initialPage,
+    required this.focusColor,
+    this.elementDecoration,
+    this.elementPadding,
     this.showQuestionsInOnePage = false,
   }) : super(child: child);
 

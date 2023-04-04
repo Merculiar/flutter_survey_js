@@ -26,7 +26,7 @@ class QuestionTitle extends StatelessWidget {
     };
     final titleTextStyle = () {
       return TextStyle(
-          fontSize: 16.0,
+          fontSize: 24,
           fontFamily: 'SF-UI-Text',
           fontWeight: FontWeight.w900,
           color: Theme.of(context).disabledColor //Color(0xff242833)

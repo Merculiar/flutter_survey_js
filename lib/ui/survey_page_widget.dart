@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_survey_js/model/survey.dart' as s;
+import 'package:flutter_survey_js/survey.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import 'elements/survey_element_factory.dart';
@@ -100,54 +101,62 @@ class SurveyPageWidgetState extends State<SurveyPageWidget> {
           },
           child: Container(
             color: Colors.white,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(
-                  height: 8.0,
-                ),
-                if (widget.page.title != null ||
-                    widget.page.description != null)
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: PanelTitle(
-                      panel: widget.page,
-                      onTimeout: () {
-                        setState(() {});
-                      },
-                    ),
-                  ),
-                Expanded(
-                  child: ScrollablePositionedList.separated(
-                    physics: ClampingScrollPhysics(),
-                    itemCount: maxIndex,
-                    itemScrollController: itemScrollController,
-                    itemPositionsListener: itemPositionsListener,
-                    itemBuilder: (context, index) {
-                      if (index < widget.page.elements!.length && index >= 0) {
-                        return SurveyElementFactory()
-                            .resolve(context, widget.page.elements![index]);
-                      } else {
-                        return Container(
-                          width: double.infinity,
-                          // child: Image.asset(
-                          //   'assets/images/decision.jpg',
-                          //   fit: BoxFit.fill,
-                          // ),
-                        );
-                      }
-                    },
-                    separatorBuilder: (BuildContext context, int index) {
-                      return SurveyElementFactory()
-                          .separatorBuilder
-                          .call(context);
-                    },
-                  ),
-                ),
-                SizedBox(
-                  height: 45,
-                ) //: Container()
-              ],
+            child: Expanded(
+              child: ScrollablePositionedList.separated(
+                itemCount: maxIndex,
+                itemScrollController: itemScrollController,
+                itemPositionsListener: itemPositionsListener,
+                itemBuilder: (context, index) {
+                  if (index == 0 &&
+                      (widget.page.title != null ||
+                          widget.page.description != null)) {
+                    return Expanded(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 8.0,
+                          ),
+                          Center(
+                            child: PanelTitle(
+                              panel: widget.page,
+                              onTimeout: () {
+                                setState(() {});
+                              },
+                            ),
+                          ),
+                          SurveyElementFactory().separatorBuilder.call(context),
+                          Container(
+                            decoration:
+                                SurveyProvider.of(context).elementDecoration,
+                            padding: SurveyProvider.of(context).elementPadding,
+                            child: SurveyElementFactory()
+                                .resolve(context, widget.page.elements![index]),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                  if (index < widget.page.elements!.length && index >= 0) {
+                    return Container(
+                      decoration: SurveyProvider.of(context).elementDecoration,
+                      padding: SurveyProvider.of(context).elementPadding,
+                      child: SurveyElementFactory()
+                          .resolve(context, widget.page.elements![index]),
+                    );
+                  } else {
+                    return Container(
+                      width: double.infinity,
+                      // child: Image.asset(
+                      //   'assets/images/decision.jpg',
+                      //   fit: BoxFit.fill,
+                      // ),
+                    );
+                  }
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return SurveyElementFactory().separatorBuilder.call(context);
+                },
+              ),
             ),
           ),
         ));

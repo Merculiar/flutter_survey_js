@@ -9,13 +9,19 @@ class PanelTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        // SurveyWidget.of(context).formGroup.vali;
-      },
+      onTap: () {},
       child: Container(
         child: ListTile(
-          title: Text(panel.title ?? panel.name ?? ''),
-          subtitle: panel.description != null ? Text(panel.description!) : null,
+          title: Text(
+            panel.title ?? panel.name ?? '',
+            style: TextStyle(fontSize: 28),
+          ),
+          subtitle: panel.description != null
+              ? Text(
+                  panel.description!,
+                  style: TextStyle(fontSize: 24),
+                )
+              : null,
         ),
       ),
     );
