@@ -11,6 +11,7 @@ final SurveyElementBuilder radioGroupBuilder =
   return ReactiveGroupButton(
     options: GroupButtonOptions(spacing: 0, runSpacing: 0),
     isRadio: true,
+    enableDeselect: true,
     formControlName: element.name!,
     buttons: (e.choices ?? []),
   ).wrapQuestionTitle(element, hasTitle: hasTitle);
