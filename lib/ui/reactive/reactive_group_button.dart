@@ -24,37 +24,39 @@ class ReactiveGroupButton extends ReactiveFocusableFormField<dynamic, dynamic> {
   })  : _controller = controller,
         _buttons = buttons,
         super(
-            key: key,
-            formControl: formControl,
-            formControlName: formControlName,
-            validationMessages: validationMessages,
-            focusNode: focusNode,
-            builder: (field) {
-              final state = field as _ReactiveGroupButtonState<dynamic>;
-              final InputDecoration effectiveDecoration = (decoration ??
-                      const InputDecoration())
-                  .applyDefaults(Theme.of(state.context).inputDecorationTheme);
-              return InputDecorator(
-                  decoration: effectiveDecoration.copyWith(
-                    errorText: field.errorText,
-                    enabled: field.control.enabled,
-                  ),
-                  child: GroupButton<s.ItemValue>(
-                    buttons: buttons,
-                    options: options,
-                    isRadio: isRadio,
-                    controller: state._controller,
-                    buttonIndexedBuilder: (
+          key: key,
+          formControl: formControl,
+          formControlName: formControlName,
+          validationMessages: validationMessages,
+          focusNode: focusNode,
+          builder: (field) {
+            final state = field as _ReactiveGroupButtonState<dynamic>;
+            final InputDecoration effectiveDecoration = (decoration ??
+                const InputDecoration())
+                .applyDefaults(Theme.of(state.context).inputDecorationTheme);
+            return InputDecorator(
+                decoration: effectiveDecoration.copyWith(
+                  errorText: field.errorText,
+                  enabled: field.control.enabled,
+                ),
+                child: GroupButton<s.ItemValue>(
+                  buttons: buttons,
+                  options: options,
+                  isRadio: isRadio,
+                  controller: state._controller,
+                  buttonIndexedBuilder: (
                       bool selected,
                       int index,
                       BuildContext context,
-                    ) {
-                      final choice = buttons[index];
-                      final title =
-                          choice.text ?? choice.value?.toString() ?? '';
-                      return Row(
-                        children: [
-                          Radio<int>(
+                      ) {
+                    final choice = buttons[index];
+                    final title =
+                        choice.text ?? choice.value?.toString() ?? '';
+                    return Row(
+                      children: [
+                        Transform.scale(
+                          scale: 1.5,
+                          child: Radio<int>(
                             groupValue: state._controller.selectedIndex,
                             value: index,
                             onChanged: (_) {
@@ -73,14 +75,15 @@ class ReactiveGroupButton extends ReactiveFocusableFormField<dynamic, dynamic> {
                               }
                             },
                           ),
-                          Text(title),
-                        ],
-                      );
-                    },
-                    enableDeselect: enableDeselect,
-                    maxSelected: maxSelected,
-                  ));
-            });
+                        ),
+                        Text(title),
+                      ],
+                    );
+                  },
+                  enableDeselect: enableDeselect,
+                  maxSelected: maxSelected,
+                ));
+          });
 
   @override
   ReactiveFormFieldState<dynamic, dynamic> createState() =>
@@ -104,7 +107,7 @@ class _ReactiveGroupButtonState<T>
         ? currentWidget._controller!
         : GroupButtonController();
     final index =
-        currentWidget._buttons.indexWhere((element) => element.text == initialValue);
+    currentWidget._buttons.indexWhere((element) => element.value == initialValue);
     if (index != -1) {
       _controller.selectIndex(index);
     }
