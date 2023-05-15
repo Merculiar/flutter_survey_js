@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_survey_js/generated/l10n.dart';
 import 'package:flutter_survey_js/survey.dart' as s;
 import 'package:flutter_survey_js/ui/form_control.dart';
 import 'package:flutter_survey_js/ui/reactive/reactive_nested_form.dart';
@@ -97,7 +96,7 @@ class MatrixDynamicElement extends StatelessWidget {
                           onPressed: () {
                             formArray.remove(c);
                           },
-                          child: Text(S.of(context).remove),
+                          child: Text('Remove'),
                         ),
                       )),
                 )
@@ -122,7 +121,7 @@ class MatrixDynamicElement extends StatelessWidget {
                   onPressed: () {
                     formArray.add(createNew());
                   },
-                  child: Text(S.of(context).add),
+                  child: Text('Add'),
                 ),
               )
             ],

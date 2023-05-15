@@ -116,6 +116,7 @@ class SurveyWidgetState extends State<SurveyWidget> {
               elementsState: elementsState,
               currentPage: currentPage,
               initialPage: initialPage,
+              focusableButtonStyle: widget.focusableButtonStyle,
               showQuestionsInOnePage: widget.showQuestionsInOnePage,
               focusColor: widget.focusColor,
               elementDecoration: widget.elementDecoration,
@@ -198,6 +199,7 @@ class SurveyProvider extends InheritedWidget {
   final int initialPage;
   final bool showQuestionsInOnePage;
   final Color focusColor;
+  final ButtonStyle? focusableButtonStyle;
   final Decoration? elementDecoration;
   final EdgeInsetsGeometry? elementPadding;
 
@@ -210,6 +212,7 @@ class SurveyProvider extends InheritedWidget {
     required this.currentPage,
     required this.initialPage,
     required this.focusColor,
+    required this.focusableButtonStyle,
     this.elementDecoration,
     this.elementPadding,
     this.showQuestionsInOnePage = false,

@@ -32,9 +32,6 @@ void main() {
         final String elementName = 'some rating';
         await widgetTester.pumpWidget(
           MaterialApp(
-            localizationsDelegates: [
-              s.MultiAppLocalizationsDelegate(),
-            ],
             home: Material(
               child: SurveyWidget(
                 survey: TestData.survey(questions: [
@@ -60,9 +57,6 @@ void main() {
         final String elementName = 'some rating';
         await widgetTester.pumpWidget(
           MaterialApp(
-            localizationsDelegates: [
-              s.MultiAppLocalizationsDelegate(),
-            ],
             home: Material(
               child: SurveyWidget(
                 survey:

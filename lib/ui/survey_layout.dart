@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_survey_js/generated/l10n.dart';
 import 'package:flutter_survey_js/model/survey.dart' as s;
 import 'package:flutter_survey_js/ui/survey_page_widget.dart';
 import 'package:flutter_survey_js/ui/survey_widget.dart';
@@ -121,7 +120,6 @@ class SurveyLayoutState extends State<SurveyLayout> {
             children: [
               (widget.stepperBuilder ?? defaultStepperBuilder)(
                   context, pageCount, currentPage),
-
               Expanded(
                 child: buildPages(pages),
               ),
@@ -190,8 +188,7 @@ class SurveyLayoutState extends State<SurveyLayout> {
   Widget nextButton() {
     final bool finished = currentPage >= pageCount - 1;
     return ElevatedButton(
-      child:
-          Text(finished ? S.of(context).submitSurvey : S.of(context).nextPage),
+      child: Text(finished ? 'Submit' : 'Next Page'),
       onPressed: () {
         SurveyWidgetState.of(context).nextPageOrSubmit();
       },
@@ -201,7 +198,7 @@ class SurveyLayoutState extends State<SurveyLayout> {
   /// Returns the previous button widget.
   Widget previousButton() {
     return ElevatedButton(
-      child: Text(S.of(context).previousPage),
+      child: Text('PreviousPage'),
       onPressed: () {
         toPage(currentPage - 1);
       },

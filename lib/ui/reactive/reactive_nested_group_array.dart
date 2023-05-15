@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_survey_js/generated/l10n.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 typedef ReactiveNestedGroupArrayBuilder = Widget Function(
@@ -83,7 +82,7 @@ class ReactiveNestedGroupArray<T> extends StatelessWidget {
                 onPressed: () {
                   formArray.add(createNew!());
                 },
-                child: Text(S.of(context).add),
+                child: Text('Add'),
               ),
             )
         ]);

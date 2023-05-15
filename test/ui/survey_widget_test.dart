@@ -15,9 +15,6 @@ main() {
         int onSubmitCallCount = 0;
         await widgetTester.pumpWidget(
           MaterialApp(
-            localizationsDelegates: [
-              s.MultiAppLocalizationsDelegate(),
-            ],
             home: Material(
               child: SurveyWidget(
                 survey: TestData.survey(

@@ -20,7 +20,9 @@ final SurveyElementBuilder ratingBuilder =
       for (final v in e.rateValues!) {
         children[v.value] = Text(
           v.text ?? v.value?.toString() ?? '',
-          style: textStyle,
+          style: selectedValue == v.value
+              ? textStyle?.copyWith(color: Colors.white)
+              : textStyle,
         );
       }
     } else {
@@ -46,6 +48,7 @@ final SurveyElementBuilder ratingBuilder =
     formControlName: element.name!,
     builder: (context, control, child) {
       return focusable.CustomReactiveSegmentedControl<int, int>(
+        context: context,
         formControlName: element.name!,
         children: getChildren(selectedValue: control.value),
       ).wrapQuestionTitle(element, hasTitle: hasTitle);

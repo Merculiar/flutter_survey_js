@@ -33,7 +33,6 @@ class MyApp extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
-        s.MultiAppLocalizationsDelegate(),
       ],
       title: 'Survey Demo',
       theme: ThemeData(
