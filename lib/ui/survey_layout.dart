@@ -141,23 +141,19 @@ class SurveyLayoutState extends State<SurveyLayout> {
 
   List<s.Page> _reCalculatePages(bool showQuestionsInOnePage, s.Survey survey) {
     var pages = <s.Page>[];
-    if (survey.questions != null) {
-      pages = [
-        s.Page()
-          ..elements = survey.questions
-          ..description = survey.description
-      ];
+    if (!showQuestionsInOnePage) {
+      pages = survey.pages ?? [];
     } else {
-      if (!showQuestionsInOnePage) {
-        pages = survey.pages ?? [];
-      } else {
+      if (survey.pages != null) {
         pages = [
           s.Page()
             ..elements = (survey.pages ?? [])
-                .map<List<s.ElementBase>>(
-                    (e) => e.elements ?? <s.ElementBase>[])
+                .map<List<s.ElementBase>>((e) =>
+            e.elements ?? <s.ElementBase>[])
                 .fold(<s.ElementBase>[],
-                    (previousValue, element) => previousValue!..addAll(element))
+                    (previousValue, element) =>
+                previousValue!
+                  ..addAll(element))
         ];
       }
     }

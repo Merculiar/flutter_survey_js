@@ -13,7 +13,6 @@ dependencies:
   scrollable_positioned_list: ^0.3.5
   im_stepper: ^1.0.1+1
   flutter_widget_from_html_core: ^0.10.0
-  multiple_localization: ^0.3.0
   reactive_forms: ^14.1.0
   reactive_date_time_picker: ^0.5.0
   reactive_date_range_picker: ^0.5.0
@@ -24,7 +23,6 @@ dependencies:
   flutter_colorpicker: ^1.0.3
   signature: ^5.3.2
   logging: ^1.0.1
-  intl: ^0.17.0
   json_annotation: ^4.6.0
   platform: ^3.1.0
   file: ^6.1.4

@@ -29,7 +29,6 @@ class SurveyWidget extends StatefulWidget {
   final Decoration? elementDecoration;
   final EdgeInsetsGeometry? elementPadding;
 
-
   const SurveyWidget({
     Key? key,
     required this.survey,
@@ -203,7 +202,6 @@ class SurveyProvider extends InheritedWidget {
   final Decoration? elementDecoration;
   final EdgeInsetsGeometry? elementPadding;
 
-
   SurveyProvider({
     required this.elementsState,
     required this.child,
@@ -228,11 +226,10 @@ class SurveyProvider extends InheritedWidget {
 
 extension SurveyFormExtension on s.Survey {
   List<s.ElementBase> getElements() {
-    return questions ??
-        pages!.fold<List<s.ElementBase>>(
-            [],
-            (previousValue, element) =>
-                previousValue..addAll(element.elements ?? []));
+    return pages!.fold<List<s.ElementBase>>(
+        [],
+        (previousValue, element) =>
+            previousValue..addAll(element.elements ?? []));
   }
 }
 
@@ -284,6 +281,6 @@ class SurveyController {
 
 extension SurveyExtension on s.Survey {
   int getPageCount() {
-    return this.questions == null ? (this.pages ?? []).length : 1;
+    return (pages ?? []).length;
   }
 }
