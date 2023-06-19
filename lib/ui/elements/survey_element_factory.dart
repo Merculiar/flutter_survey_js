@@ -46,32 +46,30 @@ class SurveyElementFactory {
             FormControl<List<dynamic>>(validators: validators));
     register<s.RadioGroup>(radioGroupBuilder);
     register<s.Boolean>(
-      //TODO ReactiveSwitch is not safe
-            (context, element, {bool hasTitle = true}) {
-          s.Boolean booleanElement = element as s.Boolean;
-          String? labelFalse = booleanElement.labelFalse;
-          String? labelTrue = booleanElement.labelTrue;
-          const labelPadding = 8.0;
-          return Row(
-            children: [
-              if (labelFalse != null)
-                Padding(
-                  padding: const EdgeInsets.only(right: labelPadding),
-                  child: Text(labelFalse),
-                ),
-              Flexible(
-                child: ReactiveSwitch(
-                  formControlName: element.name!,
-                ),
-              ),
-              if (labelTrue != null)
-                Padding(
-                  padding: const EdgeInsets.only(left: labelPadding),
-                  child: Text(labelTrue),
-                ),
-            ],
-          ).wrapQuestionTitle(element, hasTitle: hasTitle);
-        },
+        //TODO ReactiveSwitch is not safe
+        (context, element, {bool hasTitle = true}) {
+      s.Boolean booleanElement = element as s.Boolean;
+      String labelFalse = booleanElement.labelFalse ?? 'No';
+      String labelTrue = booleanElement.labelTrue ?? 'Yes';
+      const labelPadding = 8.0;
+      return Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(right: labelPadding),
+            child: Text(labelFalse),
+          ),
+          Flexible(
+            child: ReactiveSwitch(
+              formControlName: element.name!,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: labelPadding),
+            child: Text(labelTrue),
+          ),
+        ],
+      ).wrapQuestionTitle(element, hasTitle: hasTitle);
+    },
         control: (element, {validators = const []}) =>
             FormControl<bool>(validators: validators));
 
