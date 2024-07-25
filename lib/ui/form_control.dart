@@ -7,7 +7,7 @@ import 'validators.dart';
 // elementsToFormGroup mapping question json elements to FormGroup
 FormGroup elementsToFormGroup(List<s.ElementBase> elements,
     {Map<s.ElementBase, Object>? controlsMap,
-    List<ValidatorFunction> validators = const [],
+    List<Validator<dynamic>> validators = const [],
     List<AsyncValidatorFunction> asyncValidators = const []}) {
   final Map<String, Object> controls = <String, Object>{};
   for (var element in elements) {
@@ -19,7 +19,7 @@ FormGroup elementsToFormGroup(List<s.ElementBase> elements,
       }
     }
   }
-  return fb.group(controls, validators, asyncValidators);
+  return fb.group(controls, validators, );
 }
 
 extension ElementExtension on s.ElementBase {
@@ -50,9 +50,9 @@ extension ElementExtension on s.ElementBase {
             fb.group(Map.fromEntries((m.columns ?? []).map((e) =>
                 MapEntry(e.name!, FormControl<Object>(value: null)))))))));
       }
-      final validators = <ValidatorFunction>[];
+      final validators = <Validator<dynamic>>[];
       if (this is s.Question) {
-        validators.addAll(questionToValidators(this as s.Question));
+        // validators.addAll(questionToValidators(this as s.Question));
       }
       final c = SurveyElementFactory().resolveFormControl(this);
 

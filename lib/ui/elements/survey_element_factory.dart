@@ -24,7 +24,7 @@ import 'text.dart';
 typedef SurveyElementBuilder = Widget
     Function(BuildContext context, s.ElementBase element, {bool hasTitle});
 typedef SurveyFormControlBuilder = Object? Function(s.ElementBase element,
-    {List<ValidatorFunction> validators});
+    {List<Validator<dynamic>>validators});
 
 class SurveyElementFactory {
   final logger = Logger('SurveyElementFactory');
