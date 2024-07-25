@@ -30,7 +30,7 @@ final SurveyFormControlBuilder multipleTextControlBuilder =
     (s.ElementBase element, {validators = const []}) {
   final e = element as s.MultipleText;
   final texts = (e.items ?? []).map(toText).toList();
-  final res = elementsToFormGroup(texts, validators: validators);
+  final res = elementsToFormGroup(texts, validators: []);
   return res;
 };
 

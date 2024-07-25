@@ -95,7 +95,7 @@ final SurveyElementBuilder textBuilder =
 };
 
 final SurveyFormControlBuilder textControlBuilder =
-    (s.ElementBase element, {validators = const <ValidatorFunction>[]}) {
+    (s.ElementBase element, {validators = const<Validator<dynamic>>[]}) {
   final e = element as s.Text;
   if (e.inputType == 'date' ||
       e.inputType == 'datetime' ||
@@ -110,7 +110,7 @@ final SurveyFormControlBuilder textControlBuilder =
   }
   if (e.inputType == 'number') {
     return FormControl<num>(
-        validators: [...validators, NullableNumberValidator().validate]);
+        validators: [...validators, ]);
   }
   return FormControl<String>(validators: validators);
 };

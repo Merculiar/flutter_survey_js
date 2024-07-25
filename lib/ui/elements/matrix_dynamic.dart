@@ -80,7 +80,7 @@ class MatrixDynamicElement extends StatelessWidget {
                             // final newV = HashSet<ValidatorFunction>.of(
                             //     [...c.validators, ...v]).toList();
                             //TODO runner
-                            c.setValidators(v);
+                            c.setValidators([]);
                             return SurveyElementFactory()
                                 .resolve(context, q, hasTitle: false);
                           },

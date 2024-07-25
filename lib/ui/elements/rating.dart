@@ -11,7 +11,7 @@ final SurveyElementBuilder ratingBuilder =
 
   final textStyle = Theme.of(context)
       .textTheme
-      .bodyText2
+      .bodyMedium
       ?.copyWith(color: Theme.of(context).primaryColor);
 
   Map<int, Widget> getChildren({required int? selectedValue}) {

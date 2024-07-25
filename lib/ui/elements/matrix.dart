@@ -86,6 +86,6 @@ class _MatrixTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Text(column.text ?? column.value?.toString() ?? "",
-        softWrap: true, style: Theme.of(context).textTheme.subtitle1);
+        softWrap: true, style: Theme.of(context).textTheme.bodyMedium);
   }
 }
