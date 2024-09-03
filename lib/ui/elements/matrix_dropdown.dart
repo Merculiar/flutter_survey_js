@@ -71,7 +71,7 @@ class MatrixDropdownElement extends StatelessWidget {
                             // //concat validators
                             // final newV = HashSet<ValidatorFunction>.of(
                             //     [...c.validators, ...v]).toList();
-                            c.setValidators([]);
+                            c.setValidators(v);
                             return SurveyElementFactory()
                                 .resolve(context, q, hasTitle: false);
                           },

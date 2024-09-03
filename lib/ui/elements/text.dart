@@ -30,6 +30,11 @@ final SurveyElementBuilder textBuilder =
       }
     },
     child: ReactiveTextField(
+      decoration: new InputDecoration(
+        fillColor: Colors.white,
+        filled: true,
+        contentPadding: EdgeInsets.only(bottom: 10.0, left: 10.0, right: 10.0),
+      ),
       formControlName: element.name!,
       textInputAction: TextInputAction.done,
       onEditingComplete: (v) {
@@ -50,7 +55,13 @@ final SurveyElementBuilder textBuilder =
   }
   if (e.inputType == 'email') {
     widget = ReactiveTextField(
+      keyboardType: TextInputType.text,
       formControlName: element.name!,
+      textInputAction: TextInputAction.done,
+      decoration: new InputDecoration(
+        fillColor: Colors.white,
+        filled: true,
+      ),
     );
   }
   if (e.inputType == 'datetime') {
@@ -72,13 +83,23 @@ final SurveyElementBuilder textBuilder =
     widget = ReactiveTextField(
       obscureText: true,
       formControlName: element.name!,
+      textInputAction: TextInputAction.done,
+      decoration: new InputDecoration(
+        fillColor: Colors.white,
+        filled: true,
+      ),
     );
   }
   if (e.inputType == 'range') {}
   if (e.inputType == 'tel') {
     widget = ReactiveTextField(
       keyboardType: TextInputType.phone,
+      textInputAction: TextInputAction.done,
       formControlName: element.name!,
+      decoration: new InputDecoration(
+        fillColor: Colors.white,
+        filled: true,
+      ),
     );
   }
   if (e.inputType == 'time') {}
@@ -87,15 +108,20 @@ final SurveyElementBuilder textBuilder =
   if (e.inputType == 'number') {
     widget = ReactiveTextField(
       keyboardType: TextInputType.number,
+      textInputAction: TextInputAction.done,
       formControlName: element.name!,
       valueAccessor: NumStringValueAccessor(),
+      decoration: new InputDecoration(
+        fillColor: Colors.white,
+        filled: true,
+      ),
     );
   }
   return widget.wrapQuestionTitle(element, hasTitle: hasTitle);
 };
 
 final SurveyFormControlBuilder textControlBuilder =
-    (s.ElementBase element, {validators = const<Validator<dynamic>>[]}) {
+    (s.ElementBase element, {validators = const <Validator<dynamic>>[]}) {
   final e = element as s.Text;
   if (e.inputType == 'date' ||
       e.inputType == 'datetime' ||
@@ -109,8 +135,9 @@ final SurveyFormControlBuilder textControlBuilder =
     return FormControl<String>(validators: [...validators, Validators.email]);
   }
   if (e.inputType == 'number') {
-    return FormControl<num>(
-        validators: [...validators, ]);
+    return FormControl<num>(validators: [
+      ...validators,
+    ]);
   }
   return FormControl<String>(validators: validators);
 };

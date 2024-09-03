@@ -53,7 +53,7 @@ class ConditionWidget extends StatelessWidget {
               final r = ConditionRunner(requiredIf).run(values: snapshot.data);
               if (r) {
                 final v = [...c.validators, Validators.required];
-                c.setValidators(v.toList());
+                c.setValidators(v);
               } else {
                 final v = [...c.validators];
                 final r = v.indexOf(Validators.required);

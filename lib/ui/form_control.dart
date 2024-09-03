@@ -8,7 +8,7 @@ import 'validators.dart';
 FormGroup elementsToFormGroup(List<s.ElementBase> elements,
     {Map<s.ElementBase, Object>? controlsMap,
     List<Validator<dynamic>> validators = const [],
-    List<AsyncValidatorFunction> asyncValidators = const []}) {
+    List<AsyncValidator<dynamic>> asyncValidators = const []}) {
   final Map<String, Object> controls = <String, Object>{};
   for (var element in elements) {
     if (element.name != null) {
@@ -19,7 +19,7 @@ FormGroup elementsToFormGroup(List<s.ElementBase> elements,
       }
     }
   }
-  return fb.group(controls, validators, );
+  return fb.group(controls, validators, asyncValidators);
 }
 
 extension ElementExtension on s.ElementBase {
@@ -52,7 +52,7 @@ extension ElementExtension on s.ElementBase {
       }
       final validators = <Validator<dynamic>>[];
       if (this is s.Question) {
-        // validators.addAll(questionToValidators(this as s.Question));
+        validators.addAll(questionToValidators(this as s.Question));
       }
       final c = SurveyElementFactory().resolveFormControl(this);
 

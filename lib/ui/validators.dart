@@ -1,14 +1,14 @@
 import 'package:flutter_survey_js/model/survey.dart' as s;
 import 'package:reactive_forms/reactive_forms.dart';
 
-List<ValidatorFunction> questionToValidators(s.Question question) {
+List<Validator<dynamic>> questionToValidators(s.Question question) {
   return surveyToValidators(
       isRequired: question.isRequired, validators: question.validators);
 }
 
-List<ValidatorFunction> surveyToValidators(
+List<Validator<dynamic>> surveyToValidators(
     {bool? isRequired, List<s.SurveyValidator>? validators}) {
-  final res = <ValidatorFunction>[];
+  final res = <Validator<dynamic>>[];
   if (isRequired == true) {
     res.add(Validators.required);
   }
@@ -31,7 +31,7 @@ List<ValidatorFunction> surveyToValidators(
           res.add(Validators.minLength(value.minLength!));
         }
         if (value.allowDigits != null) {
-          res.add((control) {
+          res.add(Validators.delegate((control) {
             if (control.value is String) {
               if (!value.allowDigits! &&
                   (control.value as String).contains('.')) {
@@ -39,7 +39,7 @@ List<ValidatorFunction> surveyToValidators(
               }
             }
             return null;
-          });
+          }));
         }
       }
 
