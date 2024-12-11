@@ -33,7 +33,7 @@ class ReactiveNestedGroupArray<T> extends StatelessWidget {
       child: child,
       builder: (context, formArray, child) {
         while (formArray.controls.length < minLength) {
-          formArray.add(createNew!());
+          formArray.add(createNew!() as AbstractControl<T>);
         }
         final controls = formArray.controls.cast<FormGroup>().toList();
         return Column(children: [
@@ -80,7 +80,7 @@ class ReactiveNestedGroupArray<T> extends StatelessWidget {
               padding: EdgeInsets.all(5),
               child: ElevatedButton(
                 onPressed: () {
-                  formArray.add(createNew!());
+                  formArray.add(createNew!() as AbstractControl<T>);
                 },
                 child: Text('Add'),
               ),

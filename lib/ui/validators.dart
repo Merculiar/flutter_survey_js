@@ -15,7 +15,7 @@ List<Validator<dynamic>> surveyToValidators(
   if (validators != null) {
     for (var value in validators) {
       if (value is s.NumericValidator) {
-        res.add(Validators.number);
+        res.add(Validators.number());
         if (value.maxValue != null) {
           res.add(Validators.max(value.maxValue));
         }
